@@ -23,7 +23,7 @@ LD right, 6
 
 LD  paddle_x, 28 ; screen is 64 pixels width,
                  ; paddle is 8 pixels long, so 28 is the center
-LD  paddle_y, 30 ; 32 - 2
+LD  paddle_y, 28 ; 32 - 2
 
 LD ball_x, 30
 LD ball_y, 25
@@ -33,7 +33,7 @@ LD dir_y, 0
 ; clear the screen
 CLS
 
-; The main loop
+; The main loopw
 loop:
 CLS
 
@@ -67,13 +67,13 @@ ADD ball_y, step
 SNE dir_y, 1
 SUB ball_y, step
 
-SNE ball_y, 30
+SNE ball_y, 31
 LD dir_y, 1
 
 SNE ball_y, 0
 LD dir_y, 0
 
-SNE ball_x, 64
+SNE ball_x, 63
 LD dir_x, 1
 
 SNE ball_x, 0
@@ -81,6 +81,9 @@ LD dir_x, 0
 
 LD I, ball
 DRW ball_x, ball_y, 1
+
+SNE VF, 1
+LD dir_y, 1
 
 ; end of the loop
 JP  loop
