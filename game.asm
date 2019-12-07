@@ -1,4 +1,4 @@
-; CHIP8 ASM BREAKOUTaw
+; CHIP8 ASM BREAKOUT
 ; 04 XII 2019 @michalbe
 
 define paddle_x V0 ; Sprite X,Y position
@@ -28,7 +28,7 @@ LD right, 6
 
 LD  paddle_x, 28 ; screen is 64 pixels width,
                  ; paddle is 8 pixels long, so 28 is the center
-LD  paddle_y, 28 ; 32 - 2
+LD  paddle_y, 28
 
 LD ball_x, 30
 LD ball_y, 25
@@ -67,7 +67,7 @@ DRW paddle_x, paddle_y, 2
 SNE brick_hit, 1
 JP rest
 LD I, brick
-DRW brick_x, brick_y, 2
+DRW brick_x, brick_y, 3
 
 rest:
 SNE dir_x, 0
@@ -108,7 +108,7 @@ JP loop
 
 LD brick_hit, 1
 LD I, brick
-DRW brick_x, brick_y, 2
+DRW brick_x, brick_y, 3
 
 bounce:
 LD dir_y, 1
@@ -124,5 +124,6 @@ db  %11111111,
     %10000001
 
 brick:
-db  %11111111,
-    %11111111
+db  %01111110,
+    %11111111,
+    %01111110
