@@ -1,6 +1,14 @@
 ; CHIP8 ASM BREAKOUT
 ; 04 XII 2019 @michalbe
 
+define true 1
+define false 0
+
+define dir_up 1
+define dir_down 0
+define dir_left 1
+define dir_right 0
+
 define paddle_x V0 ; Sprite X,Y position
 define paddle_y V1
 define step V3
@@ -32,12 +40,12 @@ LD  paddle_y, 28
 
 LD ball_x, 30
 LD ball_y, 25
-LD dir_x, 1
-LD dir_y, 1
+LD dir_x, dir_left
+LD dir_y, dir_up
 
 LD brick_x, 28
 LD brick_y, 2
-LD brick_hit, 0
+LD brick_hit, false
 
 ; clear the screen
 CLS
@@ -64,56 +72,56 @@ LD  I, paddle
 
 DRW paddle_x, paddle_y, 2
 
-SNE brick_hit, 1
+SNE brick_hit, true
 JP calculate_ball_position
 LD I, brick
 DRW brick_x, brick_y, 3
 
 calculate_ball_position:
-SNE dir_x, 0
+SNE dir_x, dir_right
 ADD ball_x, step
 
-SNE dir_x, 1
+SNE dir_x, dir_left
 SUB ball_x, step
 
-SNE dir_y, 0
+SNE dir_y, dir_down
 ADD ball_y, step
 
-SNE dir_y, 1
+SNE dir_y, dir_up
 SUB ball_y, step
 
 SNE ball_y, 31
-LD dir_y, 1
+LD dir_y, dir_up
 
 SNE ball_y, 0
-LD dir_y, 0
+LD dir_y, dir_down
 
 SNE ball_x, 63
-LD dir_x, 1
+LD dir_x, dir_left
 
 SNE ball_x, 0
-LD dir_x, 0
+LD dir_x, dir_right
 
 LD I, ball
 DRW ball_x, ball_y, 1
 
-SE VF, 1
+SE VF, true
 JP loop
 
 SNE ball_y, 28
 JP bounce
 
-SNE brick_hit, 1
+SNE brick_hit, true
 JP loop
 
-LD brick_hit, 1
+LD brick_hit, true
 LD I, brick
 DRW brick_x, brick_y, 3
-LD dir_y, 0
+LD dir_y, dir_down
 JP loop
 
 bounce:
-LD dir_y, 1
+LD dir_y, dir_up
 
 ; end of the loop
 JP  loop
