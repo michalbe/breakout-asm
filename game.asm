@@ -65,11 +65,11 @@ LD  I, paddle
 DRW paddle_x, paddle_y, 2
 
 SNE brick_hit, 1
-JP rest
+JP calculate_ball_position
 LD I, brick
 DRW brick_x, brick_y, 3
 
-rest:
+calculate_ball_position:
 SNE dir_x, 0
 ADD ball_x, step
 
@@ -109,6 +109,8 @@ JP loop
 LD brick_hit, 1
 LD I, brick
 DRW brick_x, brick_y, 3
+LD dir_y, 0
+JP loop
 
 bounce:
 LD dir_y, 1
