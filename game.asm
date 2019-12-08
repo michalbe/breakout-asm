@@ -120,7 +120,7 @@ LD brick_hit, TRUE
 LD I, brick
 DRW brick_x, brick_y, 3
 LD dir_y, DIR_DOWN
-JP loop
+JP win
 
 bounce:
 LD dir_y, DIR_UP
@@ -128,11 +128,14 @@ LD dir_y, DIR_UP
 ; end of the loop
 JP  loop
 
+win:
+JP win
+
 ball:
 db  %10000000
 
 paddle:
-db  %11111111,
+db  %01111110,
     %10000001
 
 brick:
